@@ -4,8 +4,8 @@ async function main() {
   // Despliegue del contrato
   const CuyCollectionNft = await ethers.getContractFactory("CuyCollectionNft");
   const cuyCollectionNft = await CuyCollectionNft.deploy(
-    "Cuy Collection", // Nombre del token
-    "CUY"            // Símbolo del token
+    "Cuy Collection",
+    "CUY"
   );
 
   // Espera a que el contrato sea desplegado

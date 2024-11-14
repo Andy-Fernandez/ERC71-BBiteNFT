@@ -12,7 +12,7 @@ contract CuyCollectionNft is ERC721, Pausable, AccessControl, ERC721Burnable {
     bytes32 public constant UPGRADER_ROLE = keccak256("UPGRADER_ROLE");
     bytes32 public constant MINTER_ROLE = keccak256("MINTER_ROLE");
 
-    bytes32 public root;
+    // bytes32 public root;
 
     event Burn(address account, uint256 id);
 
@@ -33,20 +33,22 @@ contract CuyCollectionNft is ERC721, Pausable, AccessControl, ERC721Burnable {
     function safeMint(
         address to,
         uint256 tokenId
-    ) public onlyRole(MINTER_ROLE) {}
-
-    function safeMintWhiteList(
-        address to,
-        uint256 tokenId,
-        bytes32[] calldata proofs
-    ) public {
-        require(_verify(proofs, keccak256(abi.encodePacked(to, tokenId))), "Not in whitelist");
+    ) public onlyRole(MINTER_ROLE) {
         _safeMint(to, tokenId);
     }
 
-    function _verify(bytes32[] memory proofs, bytes32 leaf) internal view returns (bool) {
-        return MerkleProof.verify(proofs, root, leaf);
-    }
+    // function safeMintWhiteList(
+    //     address to,
+    //     uint256 tokenId,
+    //     bytes32[] calldata proofs
+    // ) public {
+    //     require(_verify(proofs, keccak256(abi.encodePacked(to, tokenId))), "Not in whitelist");
+    //     _safeMint(to, tokenId);
+    // }
+
+    // function _verify(bytes32[] memory proofs, bytes32 leaf) internal view returns (bool) {
+    //     return MerkleProof.verify(proofs, root, leaf);
+    // }
 
     function buyBack(uint256 id) public {
         require(ownerOf(id) == msg.sender, "Not the owner");
