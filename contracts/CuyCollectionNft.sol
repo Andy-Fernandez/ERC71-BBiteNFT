@@ -1,73 +1,48 @@
 // SPDX-License-Identifier: MIT
-pragma solidity 0.8.24;
+// Compatible with OpenZeppelin Contracts ^5.0.0
+pragma solidity ^0.8.20;
 
 import "@openzeppelin/contracts/token/ERC721/ERC721.sol";
-import "@openzeppelin/contracts/token/ERC721/extensions/ERC721Burnable.sol";
 import "@openzeppelin/contracts/token/ERC721/extensions/ERC721Pausable.sol";
-import "@openzeppelin/contracts/access/AccessControl.sol";
-import "@openzeppelin/contracts/utils/cryptography/MerkleProof.sol";
+import "@openzeppelin/contracts/access/Ownable.sol";
+import "@openzeppelin/contracts/token/ERC721/extensions/ERC721Burnable.sol";
 
-contract CuyCollectionNft is ERC721, Pausable, AccessControl, ERC721Burnable {
-    bytes32 public constant PAUSER_ROLE = keccak256("PAUSER_ROLE");
-    bytes32 public constant UPGRADER_ROLE = keccak256("UPGRADER_ROLE");
-    bytes32 public constant MINTER_ROLE = keccak256("MINTER_ROLE");
+contract MocheNFTCollection is ERC721, ERC721Pausable, Ownable, ERC721Burnable {
+    uint256 private _nextTokenId;
 
-    // bytes32 public root;
-
-    event Burn(address account, uint256 id);
-
-    /// @custom:oz-upgrades-unsafe-allow constructor
     constructor(
-        string memory _name,
-        string memory _symbol
-    ) ERC721(_name, _symbol) {
-        _grantRole(DEFAULT_ADMIN_ROLE, msg.sender);
-        _grantRole(PAUSER_ROLE, msg.sender);
-        _grantRole(MINTER_ROLE, msg.sender);
-    }
+        address initialOwner
+    ) ERC721("Moche NFT Collection", "MCHNFT") Ownable(initialOwner) {}
 
+
+    // Aca tenemos la URI base que se va a usar para todos los tokens
     function _baseURI() internal pure override returns (string memory) {
         return "ipfs://QmRfyhagdMnrWa71GmEbnVjJs3K3tZAmEDbaLkNg1oxXFN/";
     }
 
-    function safeMint(
-        address to,
-        uint256 tokenId
-    ) public onlyRole(MINTER_ROLE) {
-        _safeMint(to, tokenId);
-    }
-
-    // function safeMintWhiteList(
-    //     address to,
-    //     uint256 tokenId,
-    //     bytes32[] calldata proofs
-    // ) public {
-    //     require(_verify(proofs, keccak256(abi.encodePacked(to, tokenId))), "Not in whitelist");
-    //     _safeMint(to, tokenId);
-    // }
-
-    // function _verify(bytes32[] memory proofs, bytes32 leaf) internal view returns (bool) {
-    //     return MerkleProof.verify(proofs, root, leaf);
-    // }
-
-    function buyBack(uint256 id) public {
-        require(ownerOf(id) == msg.sender, "Not the owner");
-        _burn(id);
-        emit Burn(msg.sender, id);
-    }
-
-    function pause() public onlyRole(PAUSER_ROLE) {
+    function pause() public onlyOwner {
         _pause();
     }
 
-    function unpause() public onlyRole(PAUSER_ROLE) {
+    function unpause() public onlyOwner {
         _unpause();
     }
 
+    function safeMint(address to) public {
+        _safeMint(to, _nextTokenId);
+        _nextTokenId++;
+        if (_nextTokenId == 30) {
+            _nextTokenId = 0;
+        }
+    }
+
     // The following functions are overrides required by Solidity.
-    function supportsInterface(
-        bytes4 interfaceId
-    ) public view override(ERC721, AccessControl) returns (bool) {
-        return super.supportsInterface(interfaceId);
+
+    function _update(
+        address to,
+        uint256 tokenId,
+        address auth
+    ) internal override(ERC721, ERC721Pausable) returns (address) {
+        return super._update(to, tokenId, auth);
     }
 }
