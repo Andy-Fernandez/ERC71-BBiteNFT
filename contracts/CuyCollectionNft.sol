@@ -7,17 +7,18 @@ import "@openzeppelin/contracts/token/ERC721/extensions/ERC721Pausable.sol";
 import "@openzeppelin/contracts/access/Ownable.sol";
 import "@openzeppelin/contracts/token/ERC721/extensions/ERC721Burnable.sol";
 
-contract MocheNFTCollection is ERC721, ERC721Pausable, Ownable, ERC721Burnable {
+contract CuyCollectionNft is ERC721, ERC721Pausable, Ownable, ERC721Burnable {
     uint256 private _nextTokenId;
 
     constructor(
-        address initialOwner
-    ) ERC721("Moche NFT Collection", "MCHNFT") Ownable(initialOwner) {}
+        string memory _name,
+        string memory _symbol
+    ) ERC721(_name, _symbol) Ownable(msg.sender) {}
 
 
     // Aca tenemos la URI base que se va a usar para todos los tokens
     function _baseURI() internal pure override returns (string memory) {
-        return "ipfs://QmRfyhagdMnrWa71GmEbnVjJs3K3tZAmEDbaLkNg1oxXFN/";
+        return "ipfs://QmUBrvsNXuEEpkPXNQEp3hwUQPi3wQfEkQ3Mh2XQh6rTBr/";
     }
 
     function pause() public onlyOwner {
