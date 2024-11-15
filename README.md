@@ -15,5 +15,5 @@ npx hardhat ignition deploy ./ignition/modules/Lock.js
 ---
 
 Ruta de la carpeta de imagenes en IPFS:
-Qmdzk2PTAG5XGsaDX4XsxHaiNRgkmypSN3bCFURsdsvYPw
+//Qmdzk2PTAG5XGsaDX4XsxHaiNRgkmypSN3bCFURsdsvYPw
 # ERC71-BBiteNFT

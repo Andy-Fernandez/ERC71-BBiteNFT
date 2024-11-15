@@ -1,7 +1,7 @@
 {
   "name": "New Name",
   "description": "Escoger un nombre para tu colección",
-  "image": "ipfs:Qmdzk2PTAG5XGsaDX4XsxHaiNRgkmypSN3bCFURsdsvYPw/69.png",
+  "image": "ipfs://Qmdzk2PTAG5XGsaDX4XsxHaiNRgkmypSN3bCFURsdsvYPw/69.png",
   "attributes": [
     {
       "trait_type": "MANTO",

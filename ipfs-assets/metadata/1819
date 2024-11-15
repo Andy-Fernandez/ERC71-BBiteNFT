@@ -1,7 +1,7 @@
 {
   "name": "MOCHE#1819",
   "description": "Escoger un nombre para tu colección",
-  "image": "ipfs:Qmdzk2PTAG5XGsaDX4XsxHaiNRgkmypSN3bCFURsdsvYPw/1819.png",
+  "image": "ipfs://Qmdzk2PTAG5XGsaDX4XsxHaiNRgkmypSN3bCFURsdsvYPw/1819.png",
   "attributes": [
     {
       "trait_type": "MANTO",

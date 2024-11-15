@@ -1,6 +1,7 @@
 const { ethers, run } = require("hardhat");
 
 async function main() {
+
   // Despliegue del contrato
   const CuyCollectionNft = await ethers.getContractFactory("CuyCollectionNft");
   const cuyCollectionNft = await CuyCollectionNft.deploy(

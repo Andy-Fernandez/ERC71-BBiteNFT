@@ -18,7 +18,7 @@ contract CuyCollectionNft is ERC721, ERC721Pausable, Ownable, ERC721Burnable {
 
     // Aca tenemos la URI base que se va a usar para todos los tokens
     function _baseURI() internal pure override returns (string memory) {
-        return "ipfs://QmUBrvsNXuEEpkPXNQEp3hwUQPi3wQfEkQ3Mh2XQh6rTBr/";
+        return "ipfs://QmU4C568eQJrUnwQ2qrALVCJXmsALomvX3Qk3uKHqE5xhd/";
     }
 
     function pause() public onlyOwner {
