@@ -26,4 +26,12 @@ function construyendoMerkleTree() {
   console.log("Root: ", root);
 }
 
-construyendoMerkleTree();
+var hojaBuscarPrueba, pruebasDeLaHoja;
+function construyendoPrueba() {
+  hojaBuscarPrueba = hashToken(1, walletAndIds[1].account);
+  pruebasDeLaHoja = merkleTree.getHexProof(hojaBuscarPrueba);
+  console.log(pruebasDeLaHoja);
+}
+
+// construyendoMerkleTree();
+construyendoPrueba();
